@@ -1,7 +1,16 @@
 import Head from 'next/head'
+import { useState } from 'react'
 import styles from '../styles/layout.module.css'
 
 export default function Layout({ children }) {
+
+    const [isMenu, setIsmenu] = useState(false)
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log('submit')
+    }
+
     return <div className={styles.container}>
         <Head>
             <title>Clima 🌤</title>
@@ -9,6 +18,18 @@ export default function Layout({ children }) {
             <link rel="icon" href="/favicon.ico" />
         </Head>
         <main>
+            <div className={styles.head}>
+                <form className={styles.search} onSubmit={handleSubmit}>
+                    <input type="text" placeholder="Cambiar locación" />
+                    <button>🔍</button>
+                </form>
+                <div className={isMenu ? styles.active : styles.menu} onClick={() => setIsmenu(!isMenu)}>
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+            <div className={styles.content} style={isMenu ? {display: 'flex'} : {display: 'none'}}>
+              <p>It is a menu</p>
+            </div>
             {children}
         </main>
     </div>;
