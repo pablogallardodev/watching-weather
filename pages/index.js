@@ -1,20 +1,17 @@
 import Layout from "../components/layout"
+import styles from "../styles/home.module.css"
 
 export default function Home({ weather }) {
 
   return (
     <Layout>
-      <img src={weather.conditionIcon} alt={weather.conditionText}/>
-      <p>{weather.conditionText}</p>
-      <p>{weather.country}</p>
-      <p>{weather.localtime}</p>
-      <p>{weather.locationName}</p>
-      <p>{weather.humidity}</p>
-      <p>{weather.isDay}</p>
-      <p>{weather.feelsLike}</p>
-      <p>{weather.temperature}</p>
-      <p>{weather.windSpeed}</p>
-      <p>{weather.windDir}</p>
+      <h3 className={styles.time}>{weather.localtime}</h3>
+      <div className={styles.condition}>
+        <img src={weather.conditionIcon} alt={weather.conditionText} />
+        <label>{weather.conditionText}</label>
+      </div>
+      <h2 className={styles.location}>{weather.locationName}</h2>
+      <h1 className={styles.temperature}>{Math.round(weather.temperatureC)}<label>°C</label></h1>
     </Layout>
   )
 }

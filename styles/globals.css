@@ -11,8 +11,8 @@ label, input, button {
 }
 
 :root {
-  ---secondary-color: #0070f3;
   ---primary-color: #00ec92;
+  ---secondary-color: #0070f3;
   ---black-color: #222;
   ---white-color: #eee;
 }

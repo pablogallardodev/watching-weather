@@ -37,7 +37,7 @@
 }
 
 .search button {
-  background-color: var(---primary-color);
+  background-color: var(---secondary-color);
   border: none;
   border-radius: 8px;
   padding: 2px 8px;

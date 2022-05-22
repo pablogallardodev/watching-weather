@@ -1,0 +1,41 @@
+{
+    "location": {
+        //"name": "León", // 	Nombre del lugar
+        "region": "Guanajuato", // Región o estado de la ubicación, si está disponible
+        //"country": "Méjico", //País de ubicación
+        "lat": 21.12, // Latitud en grados decimales
+        "lon": -101.67, // Longitud en grados decimales
+        "tz_id": "America/Mexico_City", // Nombre de la zona horaria
+        "localtime_epoch": 1653244579, //Fecha y hora local en hora unix
+        //"localtime": "2022-05-22 13:36" // Fecha y hora locales
+    },
+    "current": {
+        "last_updated_epoch": 1653244200, // Hora local cuando los datos en tiempo real se actualizaron en tiempo de Unix.
+        "last_updated": "2022-05-22 13:30", // Hora local cuando se actualizaron los datos en tiempo real.
+        //"temp_c": 30, // Temperatura en grados centígrados
+        //"temp_f": 86, // Temperatura en farenheit
+        //"is_day": 1, // Si se muestra el ícono de condición diurna o el ícono nocturno
+        "condition": {
+            //"text": "Sunny", // Texto de condiciones climáticas
+            //"icon": "//cdn.weatherapi.com/weather/64x64/day/113.png", // URL del icono del tiempo
+            "code": 1000 // Código único de condición meteorológica.
+        },
+        "wind_mph": 9.4, // Velocidad del viento en millas por hora
+        //"wind_kph": 15.1, // Velocidad del viento en kilómetros por hora
+        //"wind_degree": 290, // Dirección del viento en grados
+        //"wind_dir": "WNW", // Dirección del viento como brújula de 16 puntos. por ejemplo: Nueva Gales del Sur
+        "pressure_mb": 1026, // Presión en milibares
+        "pressure_in": 30.3, //Presión en pulgadas
+        "precip_mm": 0, // Cantidad de precipitación en milímetros
+        "precip_in": 0, // Cantidad de precipitación en pulgadas
+        //"humidity": 17, // Humedad como porcentaje
+        "cloud": 0, // Cobertura de nubes como porcentaje
+        //"feelslike_c": 27.8, // Se siente como la temperatura en grados Celsius
+        //"feelslike_f": 82, // Se siente como la temperatura en Fahrenheit
+        "vis_km": 16,
+        "vis_miles": 9,
+        "uv": 8, // Índice UV
+        "gust_mph": 5.1, // Ráfaga de viento en millas por hora
+        "gust_kph": 8.3  // Ráfaga de viento en kilómetros por hora
+    }
+}
