@@ -1,0 +1,11 @@
+.footer {
+  align-items: center;
+  background-color: #0070f3;
+  bottom: .5rem;
+  color: white;
+  display: flex;
+  padding: .5rem;
+  position: absolute;
+  border-radius: .5rem;
+  box-shadow: 0 0 10px rgb(0, 0, 0, 0.2);
+}

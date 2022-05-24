@@ -18,7 +18,7 @@
 }
 
 .search button {
-  background-color: var(---secondary-color);
+  background-color: #0070f3;
   border: none;
   border-radius: 8px;
   padding: 2px 8px;
@@ -33,7 +33,7 @@
 }
 
 .menu span, .active span{
-  background-color: var(---black-color);
+  background-color: #222;
   display: block;
   width: 32px;
   height: 4px;

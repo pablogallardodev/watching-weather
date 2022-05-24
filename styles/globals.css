@@ -9,10 +9,3 @@ body {
 label, input, button {
   font-size: 18px;
 }
-
-:root {
-  ---primary-color: #00ec92;
-  ---secondary-color: #0070f3;
-  ---black-color: #222;
-  ---white-color: #eee;
-}

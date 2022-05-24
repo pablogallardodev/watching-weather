@@ -1,0 +1,20 @@
+.info {
+  background-color: #f5f5f5;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  padding: .5rem 0;
+  width: 95%;
+}
+
+.info div {
+  cursor: default;
+}
+
+.info span {
+  display: block;
+  font-weight: 350;
+  font-size: 16px;
+  margin-bottom: .2rem;
+}

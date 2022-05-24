@@ -11,7 +11,10 @@ export default function handler(req, res) {
     },
   };
 
-  fetch(`${process.env.BASE_URL}current.json?q=${q || "León"}&lang=es`, options)
+  fetch(
+    `${process.env.BASE_URL}current.json?q=${q || "Guadalajara"}&lang=es`,
+    options
+  )
     .then((response) => response.json())
     .then((data) => {
       const { location, current } = data;
