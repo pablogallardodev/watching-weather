@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { BsArrowLeftSquare } from 'react-icons/bs'
+import { onSignOut } from 'services/firebase/client'
+import Avatar from "components/Avatar";
 import styles from "styles/navbar.module.css";
 
 const Navbar = ({ location, setLocation, handleSubmit }) => {
@@ -29,7 +32,11 @@ const Navbar = ({ location, setLocation, handleSubmit }) => {
         className={styles.content}
         style={viewMenu ? { opacity: 1 } : { opacity: 0 }}
       >
-        <p>It is a menu</p>
+        <Avatar />
+        <button className={styles.signout} onClick={onSignOut}>
+          Sign Out
+          <BsArrowLeftSquare/>
+        </button>
       </div>
     </>
   );

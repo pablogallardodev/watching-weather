@@ -25,6 +25,7 @@
   border-radius: 8px;
   padding: 2px 8px;
   cursor: pointer;
+  transition: all .3s ease;
 }
 
 .menu, .active {
@@ -36,7 +37,7 @@
 }
 
 .menu span, .active span{
-  background-color: #fff;
+  background-color: #000;
   display: block;
   width: 32px;
   height: 4px;
@@ -57,9 +58,41 @@
 }
 
 .content {
-  background-color: red;
+  background-color: #f5f5f5;
+  border-radius: .5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: .5rem;
   position: absolute;
   top: 3.5rem;
   transition: all 0.6s ease;
-  width: 100%;
+  width: 90%;
+}
+
+.signout {
+  align-items: center;
+  background-color: #F32424;
+  border-radius: .5rem;
+  border-color: #444;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  color: #eee;
+  cursor: pointer;
+  display: flex;
+  font-size: 1rem;
+  font-weight: 300;
+  margin: 1rem 0 0 0;
+  padding: .2rem .5rem;
+  transition: all .3s ease;
+  width: fit-content;  
+}
+
+.signout svg {
+  font-weight: 600;
+  margin-left: .5rem;
+}
+
+.signout:hover, .search button:hover {
+  opacity: 0.7;
 }

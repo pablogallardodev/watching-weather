@@ -11,7 +11,7 @@ const Layout = ({ children, isDay }) => {
       </Head>
       <main style={
         isDay !== undefined
-        ? isDay ? {backgroundColor: '#0070f34f'} : {backgroundColor: '#7F00FF4f'}
+        ? isDay ? {backgroundColor: '#0070f330'} : {backgroundColor: '#7F00FF30'}
         : null
       }>{children}</main>
     </div>

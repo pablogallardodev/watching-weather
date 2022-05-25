@@ -1,4 +1,4 @@
-export default function useFetch(endPoint, q) {
+export default function useFetch(endPoint, q = '') {
   return fetch(`/api/${endPoint}`, {
     body: JSON.stringify({ q }),
     method: "POST",

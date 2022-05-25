@@ -1,0 +1,26 @@
+.container {
+  align-items: center;
+  display: flex;
+  width: 100%;
+}
+
+.container img {
+  width: 3.5rem;
+  height: auto;
+}
+
+.container div {
+  display: flex;
+  flex-direction: column;
+  margin-left: .5rem;
+}
+
+.name {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.mail {
+  font-size: .8rem;
+  color: #888;
+}
