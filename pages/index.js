@@ -42,10 +42,10 @@ const App = () => {
           <span>By Pablo Gallardo</span>
           <div>
             <a href="https://github.com/pablogallardodev/watching-weather" target="_blank" rel="noreferrer">
-              <BsGithub className={styles.git} size={24} title="Ver códgio"/>
+              <BsGithub className={styles.git} size={24} title="See code"/>
             </a>
             <a href="https://www.instagram.com/pablogallardodev/" target="_blank" rel="noreferrer">
-              <BsInstagram className={styles.insta} size={24} title="Sigueme en insta..."/>
+              <BsInstagram className={styles.insta} size={24} title="Follow me..."/>
             </a>
           </div>
         </div>

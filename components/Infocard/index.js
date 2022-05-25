@@ -9,17 +9,17 @@ import styles from "styles/info.module.css";
 const InfoCard = ({ weather }) => {
   return (
     <section className={styles.info}>
-      <div title="Humedad">
+      <div title="Humidity">
         <span>{weather?.humidity}%</span>
         <BsFillDropletFill size={24} color="#0070f3" />
       </div>
 
-      <div title="Velocidad del viento">
+      <div title="Wind speed">
         <span>{weather?.windSpeed} km/h</span>
         <BsWind size={24} color="#333" />
       </div>
 
-      <div title="Dirección del viento">
+      <div title="Wind direction">
         <span>
           {weather?.windDegree} {weather?.windDir}
         </span>
@@ -30,7 +30,7 @@ const InfoCard = ({ weather }) => {
         />
       </div>
 
-      <div title="Indice ultravioleta">
+      <div title="UV">
         <span>{weather?.uv}</span>
         <BsFillLightningFill size={24} color="#7F00FF" />
       </div>

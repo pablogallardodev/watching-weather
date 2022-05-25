@@ -17,6 +17,7 @@ const Home = () => {
   const [weather, setWeather] = useState(null);
   const [location, setLocation] = useState("");
   const [loading, setLoading] = useState(false);
+  const [myLocation, setMyLocation] = useState(true);
 
   useEffect(() => {
     user === null && router.replace('/')
@@ -26,26 +27,20 @@ const Home = () => {
     setLoading(true)
     function success({coords}) {
       useFetch('get_current', `${coords.latitude},${coords.longitude}`).then(response => {
-        if (!response.error) {
-          setWeather(response.data)
-          setLoading(false)
-        }
+        if (!response.error) setWeather(response.data)
       })
     };
     
     function error(err) { 
       console.warn(err.message)
       useFetch('get_current').then(response => {
-        if (!response.error) {
-          setWeather(response.data)
-          setLoading(false)
-        }
+        if (!response.error) setWeather(response.data)
       })
     };
     
-    navigator.geolocation.getCurrentPosition(success, error, {});
-    
-  }, []);
+    myLocation && navigator.geolocation.getCurrentPosition(success, error, {});
+    setLoading(false)
+  }, [myLocation]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -56,8 +51,10 @@ const Home = () => {
           setWeather(response.data)
           setLoading(false)
           setLocation('')
+          setMyLocation(false)
         } else {
           setLoading(false)
+          setMyLocation(true)
         }
       })
     }
@@ -66,7 +63,13 @@ const Home = () => {
   return (
     !loading
     ?<Layout isDay={weather?.isDay}>
-      <Navbar location={location} setLocation={setLocation} handleSubmit={handleSubmit}/>
+      <Navbar
+        location={location}
+        setLocation={setLocation}
+        handleSubmit={handleSubmit}
+        myLocation={myLocation}
+        setMyLocation={setMyLocation}
+      />
       <h3 className={styles.time}>{weather?.localtime}</h3>
 
       <h2 className={styles.location}>

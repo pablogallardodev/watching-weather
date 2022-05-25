@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { BsArrowLeftSquare } from 'react-icons/bs'
+import { BsGeoAltFill } from 'react-icons/bs'
+import { VscSignOut } from 'react-icons/vsc'
 import { onSignOut } from 'services/firebase/client'
 import Avatar from "components/Avatar";
 import styles from "styles/navbar.module.css";
 
-const Navbar = ({ location, setLocation, handleSubmit }) => {
+const Navbar = ({ location, setLocation, handleSubmit, myLocation, setMyLocation }) => {
   const [viewMenu, setViewMenu] = useState(false);
 
   return (
@@ -13,12 +14,18 @@ const Navbar = ({ location, setLocation, handleSubmit }) => {
         <form className={styles.search} onSubmit={handleSubmit}>
           <input
             type="text"
-            placeholder="ej: London"
+            placeholder="ex: London"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
-          <button title="Cambiar ubicación">🔍</button>
+          <button title="Change location">🔍</button>
         </form>
+        <BsGeoAltFill 
+          size={28}
+          className={myLocation ? styles.myLocationOn : styles.myLocationOff}
+          onClick={() => setMyLocation(true)}
+          title="Get my location"
+        />
         <div
           className={viewMenu ? styles.active : styles.menu}
           onClick={() => setViewMenu(!viewMenu)}
@@ -33,10 +40,10 @@ const Navbar = ({ location, setLocation, handleSubmit }) => {
         style={viewMenu ? { opacity: 1 } : { opacity: 0 }}
       >
         <Avatar />
-        <button className={styles.signout} onClick={onSignOut}>
+        <label className={styles.signout} onClick={onSignOut}>
           Sign Out
-          <BsArrowLeftSquare/>
-        </button>
+          <VscSignOut size={22}/>
+        </label>
       </div>
     </>
   );
