@@ -1,0 +1,118 @@
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -.06em;
+  text-align: center;
+}
+
+.title span {
+  display: block;
+  line-height: 1;
+  padding: 0 1px 10px 0;
+  position: relative;
+}
+
+.title span:nth-child(1)::before {
+  background: linear-gradient(90deg, #007CF0, #00DFD8);
+  content: "Clima.";
+  position: absolute;
+  inset: 0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animated 6s infinite;
+  animation-delay: 0s;
+}
+
+.title span:nth-child(2)::before {
+  background: linear-gradient(90deg, rgb(0, 255, 157), rgba(0, 255, 157, 0.6));
+  content: "Tiempo real.";
+  position: absolute;
+  inset: 0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animated 6s infinite;
+  animation-delay: 2s;
+}
+
+.title span:nth-child(3)::before {
+  background: linear-gradient(90deg, #fa2525, #F9CB28);
+  content: "Lugares.";
+  position: absolute;
+  inset: 0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animated 6s infinite;
+  animation-delay: 4s;
+}
+
+@keyframes animated {
+  0%, 16.667%, 100% {
+    opacity: 1;
+  }
+
+  33.333%, 83.333% {
+    opacity: 0;
+  }
+}
+
+.subTitle {
+  font-size: 1.2rem;
+  font-weight: 300;
+  font-style: oblique;
+  max-width: 80%;
+  text-align: center;
+}
+
+.btn {
+  align-items: center;
+  background: #222;
+  border-radius: 2rem;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  font-size: 1rem;
+  margin: 2rem 0;
+  padding: 8px 24px;
+  transition: opacity 0.3s ease;
+  user-select: none;
+}
+
+.btn:hover {
+  opacity: 0.7;
+}
+
+.btn > svg {
+  margin-right: .5rem;
+}
+
+.social {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+
+.social span {
+  font-weight: 300;
+  margin: .3rem 0;
+}
+
+.social div {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.social div svg {
+  cursor: pointer;
+}

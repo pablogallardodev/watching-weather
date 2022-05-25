@@ -1,54 +1,31 @@
-import { useEffect, useState } from "react";
-import Layout from "components/Layout";
-import Navbar from "components/Navbar";
-import Infocard from "components/Infocard";
-import Footer from "components/Footer";
-import styles from "styles/home.module.css";
+import { BsGithub, BsInstagram } from 'react-icons/bs'
+import Layout from 'components/Layout'
+import styles from 'styles/app.module.css'
 
-const Home = () => {
-  const [weather, setWeather] = useState(null);
-  const [location, setLocation] = useState("");
-
-  useEffect(() => {
-    fetch("/api/get_current", {
-      body: JSON.stringify({ q: location }),
-      method: "POST",
-    })
-      .then((res) => res.json())
-      .then(({ error, data }) => {
-        if (!error) {
-          setWeather(data);
-        }
-      });
-  }, []);
-
+const App = () => {
   return (
     <Layout>
-      <Navbar location={location} setLocation={setLocation} />
-      <h3 className={styles.time}>{weather?.localtime}</h3>
-
-      <h2 className={styles.location}>
-        {weather?.locationName}, {weather?.country}
-      </h2>
-
-      <h1 className={styles.temperature}>
-        {weather?.temperatureC}
-        <label>°C</label>
-      </h1>
-
-      <span className={styles.feelslike}>
-        Sensación termica: {weather?.feelsLikeC} °C
-      </span>
-
-      <div className={styles.condition}>
-        <img src={weather?.conditionIcon} alt={weather?.conditionText} />
-        <label>{weather?.conditionText}</label>
+      <div className={styles.container}>
+        <h1 className={styles.title}>
+          <span>Clima.</span>
+          <span>Tiempo real.</span>
+          <span>Lugares.</span>
+        </h1>
+        <label className={styles.subTitle}>Observa el clima de tus lugares favoritos !!!</label>
+        <button className={styles.btn}>
+          <BsGithub size={24} color="#f5f5f5"/>
+          Iniciar sesión con gitHub
+        </button>
+        <div className={styles.social}>
+          <span>By Pablo Gallardo</span>
+          <div>
+            <BsGithub size={24} title="Ver códgio"/>
+            <BsInstagram size={24} title="Sigueme en insta..."/>
+          </div>
+        </div>
       </div>
-
-      <Infocard weather={weather} />
-      <Footer />
     </Layout>
   );
 };
 
-export default Home;
+export default App;

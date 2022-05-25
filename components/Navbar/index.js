@@ -10,11 +10,11 @@ const Navbar = ({ location, setLocation, handleSubmit }) => {
         <form className={styles.search} onSubmit={handleSubmit}>
           <input
             type="text"
-            placeholder="Cambiar locación"
+            placeholder="ej: London"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
-          <button>🔍</button>
+          <button title="Cambiar ubicación">🔍</button>
         </form>
         <div
           className={viewMenu ? styles.active : styles.menu}

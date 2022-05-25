@@ -12,7 +12,7 @@ export default function handler(req, res) {
   };
 
   fetch(
-    `${process.env.BASE_URL}current.json?q=${q || "Guadalajara"}&lang=es`,
+    `${process.env.BASE_URL}current.json?q=${q || "Guadalajara"}`,
     options
   )
     .then((response) => response.json())
