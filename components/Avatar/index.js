@@ -1,4 +1,3 @@
-import Spiner from "components/Spiner";
 import useUser from "hooks/useUser";
 
 import styles from 'styles/avatar.module.css'
@@ -15,7 +14,7 @@ const Avatar = () => {
         <label className={styles.mail}>{user.email}</label>
       </div>
     </div>
-    : <Spiner />
+    : null
   )
 }
 export default Avatar;

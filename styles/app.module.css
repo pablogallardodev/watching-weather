@@ -41,6 +41,7 @@
   -webkit-text-fill-color: transparent;
   animation: animated 6s infinite;
   animation-delay: 2s;
+  opacity: 0;
 }
 
 .title span:nth-child(3)::before {
@@ -52,6 +53,7 @@
   -webkit-text-fill-color: transparent;
   animation: animated 6s infinite;
   animation-delay: 4s;
+  opacity: 0;
 }
 
 @keyframes animated {

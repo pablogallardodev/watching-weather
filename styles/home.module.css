@@ -18,9 +18,16 @@
   font-weight: 300;
   font-size: 7rem;
   color: #333;
+  display: flex;
   text-transform: uppercase;
   margin: .5rem 0;
   padding: 0;
+}
+
+.temperature label {
+  padding-top: 2rem;
+  font-size: 1.5rem;
+  font-weight: 400;
 }
 
 .feelslike {

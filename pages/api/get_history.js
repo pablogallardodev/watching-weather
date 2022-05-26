@@ -15,7 +15,7 @@ export default function handler(req, res) {
   const day = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
 
   fetch(
-    `${process.env.BASE_URL}history.json?q=${q || "Guadalajara"}&dt=${day}`,
+    `${process.env.BASE_URL}history.json?q=${q || "Guanajuato"}&dt=${day}`,
     options
   )
     .then((response) => response.json())
