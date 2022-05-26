@@ -1,0 +1,33 @@
+.container {
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: .5rem;
+  box-shadow: 0 0 10px rgb(0, 0, 0, 0.2);
+  display: flex;
+  margin: 1rem 0;
+  min-height: 8rem;
+  overflow-x: scroll;
+  text-align: center;
+  width: 95%;
+}
+
+.container::-webkit-scrollbar {
+  height: .6rem;
+}
+
+.container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background-color: rgb(173, 173, 173);
+  border-radius: 5px;
+}
+
+.day {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: min-content;
+}

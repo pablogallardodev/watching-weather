@@ -6,6 +6,7 @@ import Navbar from "components/Navbar";
 import Infocard from "components/Infocard";
 import Footer from "components/Footer";
 import Spiner from "components/Spiner";
+import History from "components/History";
 import useFetch from "hooks/useFetch";
 import styles from "styles/home.module.css";
 
@@ -15,6 +16,7 @@ const Home = () => {
   const user = useUser()
   const router = useRouter()
   const [weather, setWeather] = useState(null);
+  const [historyDay, setHistoryDay] = useState({});
   const [location, setLocation] = useState("");
   const [loading, setLoading] = useState(false);
   const [myLocation, setMyLocation] = useState(true);
@@ -29,12 +31,20 @@ const Home = () => {
       useFetch('get_current', `${coords.latitude},${coords.longitude}`).then(response => {
         if (!response.error) setWeather(response.data)
       })
+
+      useFetch('get_history', `${coords.latitude},${coords.longitude}`).then(response => {
+        if (!response.error) setHistoryDay(response.data)
+      })
     };
     
     function error(err) { 
       console.warn(err.message)
       useFetch('get_current').then(response => {
         if (!response.error) setWeather(response.data)
+      })
+
+      useFetch('get_history').then(response => {
+        if (!response.error) setHistoryDay(response.data)
       })
     };
     
@@ -46,16 +56,19 @@ const Home = () => {
     e.preventDefault();
     if (location) {
       setLoading(true)
-      useFetch('get_current', location).then(response => {
-        if (!response.error) {
-          setWeather(response.data)
-          setLoading(false)
-          setLocation('')
-          setMyLocation(false)
-        } else {
-          setLoading(false)
-          setMyLocation(true)
-        }
+      useFetch('get_current', location).then(resW => {
+        useFetch('get_history', location).then(resH => {
+          if (!resW.error && !resH.error) {
+            setWeather(resW.data)
+            setHistoryDay(resH.data)
+            setLoading(false)
+            setLocation('')
+            setMyLocation(false)
+          } else {
+            setLoading(false)
+            setMyLocation(true)
+          }
+        })
       })
     }
   }
@@ -91,6 +104,7 @@ const Home = () => {
       </div>
 
       <Infocard weather={weather} />
+      <History historyDay={historyDay}/>
       <Footer />
     </Layout>
     : <Layout>
