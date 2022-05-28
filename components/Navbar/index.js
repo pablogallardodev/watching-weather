@@ -5,27 +5,37 @@ import { onSignOut } from 'services/firebase/client'
 import Avatar from "components/Avatar";
 import styles from "styles/navbar.module.css";
 
-const Navbar = ({ location, setLocation, handleSubmit, myLocation, setMyLocation }) => {
+const Navbar = ({ location, setLocation, handleSubmit, myLocation, setMyLocation, list }) => {
   const [viewMenu, setViewMenu] = useState(false);
+
+  const handleSignOut = () => {
+    setViewMenu(!viewMenu);
+    onSignOut();
+  }
 
   return (
     <>
       <div className={styles.head}>
-        <form className={styles.search} onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="ex: London"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
+        {!list && 
+          <form className={styles.search} onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="ex: London"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            />
+            <button title="Change location">🔍</button>
+          </form>
+        }
+        { !list &&
+          <BsGeoAltFill 
+            size={28}
+            className={myLocation ? styles.myLocationOn : styles.myLocationOff}
+            onClick={() => setMyLocation(true)}
+            title="Get my location"
           />
-          <button title="Change location">🔍</button>
-        </form>
-        <BsGeoAltFill 
-          size={28}
-          className={myLocation ? styles.myLocationOn : styles.myLocationOff}
-          onClick={() => setMyLocation(true)}
-          title="Get my location"
-        />
+        }
+        { list && <h2>My favourite places</h2>}
         <div
           className={viewMenu ? styles.active : styles.menu}
           onClick={() => setViewMenu(!viewMenu)}
@@ -37,10 +47,10 @@ const Navbar = ({ location, setLocation, handleSubmit, myLocation, setMyLocation
       </div>
       <div
         className={styles.content}
-        style={viewMenu ? { opacity: 1 } : { opacity: 0 }}
+        style={viewMenu ? { display: 'flex' } : { display: 'none' }}
       >
         <Avatar />
-        <label className={styles.signout} onClick={onSignOut}>
+        <label className={styles.signout} onClick={handleSignOut}>
           Sign Out
           <VscSignOut size={22}/>
         </label>

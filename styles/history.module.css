@@ -12,7 +12,7 @@
 }
 
 .container::-webkit-scrollbar {
-  height: .6rem;
+  height: .4rem;
 }
 
 .container::-webkit-scrollbar-track {

@@ -5,7 +5,18 @@ import {
   GithubAuthProvider, 
   onAuthStateChanged, 
   signOut
-} from "firebase/auth";
+} from "firebase/auth"
+import { 
+  addDoc, 
+  collection,
+  doc,
+  deleteDoc,
+  getDocs, 
+  getFirestore,
+  query, 
+  orderBy,
+  where
+} from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: "AIzaSyCf2G5_9Ykeh0rs7VzUA2JMsxTqBjTq3PE",
@@ -15,10 +26,11 @@ const firebaseConfig = {
   messagingSenderId: "872723034257",
   appId: "1:872723034257:web:3ee8566ac110ca74488f30",
   measurementId: "G-C99YWZDB5H"
-};
+}
 
-!getApps().length && initializeApp(firebaseConfig);
-const githubProvider = new GithubAuthProvider();
+!getApps().length && initializeApp(firebaseConfig)
+const githubProvider = new GithubAuthProvider()
+const db = getFirestore()
 
 const mapToUser = (user) => {
   const { displayName, email, photoURL } = user;
@@ -46,4 +58,40 @@ export const loginWithGitHub = () => {
 export const onSignOut = () => {
   const auth = getAuth();
   signOut(auth);
+}
+
+export const saveFavorite = async (location) => {
+  const auth = getAuth()
+  const { email } = auth.currentUser
+  const collectionRef = collection(db, email)
+  
+  const q = query(collectionRef, where('location', '==', location))
+  const querySnapshot = await getDocs(q)
+
+  if (querySnapshot.size) {
+    return false
+  } else {
+    await addDoc(collectionRef, { location }) 
+    return true
+  }
+}
+
+export const getFavorites = async () => {
+  const auth = getAuth()
+  const { email } = auth.currentUser
+  const collectionRef = collection(db, email)
+  const q = query(collectionRef, orderBy('location'))
+  return getDocs(q).then(query => query.docs.map(doc => doc.data()))
+}
+
+export const deleteFavorite = async (location) => {
+  const auth = getAuth()
+  const { email } = auth.currentUser
+  const collectionRef = collection(db, email)
+  const q = query(collectionRef, where('location', '==', location))
+  const querySnapshot = await getDocs(q)
+
+  querySnapshot.forEach(async (document) => {
+    await deleteDoc(doc(collectionRef, document.id))
+  });
 }

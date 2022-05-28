@@ -23,34 +23,32 @@ const App = () => {
   }
 
   return (
-    <Layout>
-      <div className={styles.container}>
-        <h1 className={styles.title}>
-          <span>Weather.</span>
-          <span>Real time.</span>
-          <span>Places.</span>
-        </h1>
-        <label className={styles.subTitle}>Observe the weather of your favorite places !!!</label>
-        { user === null && (
-          <button className={styles.btn} onClick={handleLogin}>
-            <BsGithub size={24} color="#f5f5f5"/>
-            Login whit GitHub
-          </button>
-        )}
-        { user === undefined && <Spiner />}
-        <div className={styles.social}>
-          <span>By Pablo Gallardo</span>
-          <div>
-            <a href="https://github.com/pablogallardodev/watching-weather" target="_blank" rel="noreferrer">
-              <BsGithub className={styles.git} size={24} title="See code"/>
-            </a>
-            <a href="https://www.instagram.com/pablogallardodev/" target="_blank" rel="noreferrer">
-              <BsInstagram className={styles.insta} size={24} title="Follow me..."/>
-            </a>
-          </div>
+    <div className={styles.container}>
+      <h1 className={styles.title}>
+        <span>Weather.</span>
+        <span>Real time.</span>
+        <span>Places.</span>
+      </h1>
+      <label className={styles.subTitle}>Observe the weather of your favorite places !!!</label>
+      { user === null && (
+        <button className={styles.btn} onClick={handleLogin}>
+          <BsGithub size={24} color="#f5f5f5"/>
+          Login whit GitHub
+        </button>
+      )}
+      { user === undefined && <Spiner />}
+      <div className={styles.social}>
+        <span>By Pablo Gallardo</span>
+        <div>
+          <a href="https://github.com/pablogallardodev/watching-weather" target="_blank" rel="noreferrer">
+            <BsGithub className={styles.git} size={24} title="See code"/>
+          </a>
+          <a href="https://www.instagram.com/pablogallardodev/" target="_blank" rel="noreferrer">
+            <BsInstagram className={styles.insta} size={24} title="Follow me..."/>
+          </a>
         </div>
       </div>
-    </Layout>
+    </div>
   );
 };
 

@@ -1,9 +1,19 @@
 .head {
-  width: 100%;
+  align-items: center;
+  background-color: #ffffff30;
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  margin: 16px 4px 4px 4px;
+  margin: 0;
+  transition: all .4s ease;
+  top: 0;
+  padding: 1rem .5rem .5rem .5rem;
+  position: sticky;
+  width: 100%;
+}
+
+.head h2 {
+  margin: 0;
 }
 
 .search {

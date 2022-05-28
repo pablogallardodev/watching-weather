@@ -4,24 +4,64 @@ import {
   BsHouse, 
   BsBookmarkPlus,
   BsListUl,
-  BsCheckCircleFill
 } from 'react-icons/bs'
 import { useRouter } from 'next/router'
+import { saveFavorite } from 'services/firebase/client'
+import Spiner from 'components/Spiner';
+import Message from 'components/Message';
 
-const Footer = () => {
+const Footer = ({location}) => {
   const router = useRouter()
-  const [save, setSave] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState({
+    view: false,
+    error: false,
+    text: 'Prueba',
+  })
+
+  const handleSave = () => {
+    setLoading(true)
+    saveFavorite(location).then(res => {
+      if (res) {
+        setLoading(false)
+        setMessage({
+          view: true,
+          error: false,
+          text: 'Save successfully',
+        })
+      } else {
+        setLoading(false)
+        setMessage({
+          view: true,
+          error: true,
+          text: 'Already exist',
+        })
+      }
+    }).catch(error => {
+      console.error(error)
+      setLoading(false)
+      setMessage({
+        view: true,
+        error: true,
+        text: 'Error, try again.',
+      })
+    })
+
+    setInterval(() => {
+      setMessage({view: false})
+    }, 3000)
+  }
 
   return (
     <>
-    <div className={styles.message} style={save ? { opacity: 1 } : null }>
-      <BsCheckCircleFill/>
-      <label>Success!!</label>
-    </div>
+    <Message message={message}/>
     <div className={styles.footer}>
-      <BsBookmarkPlus title="Add to favorites" onClick={() => setSave(!save)}/>
-      <BsHouse title="To home" onClick={() => router.replace('/home')}/>
-      <BsListUl title="To my locations" onClick={() => router.replace('/list')}/>
+      {
+        loading ? <Spiner />
+        : <BsBookmarkPlus title="Add location to favorites" onClick={handleSave}/>
+      }
+      <BsHouse title="Home" onClick={() => router.replace('/home')}/>
+      <BsListUl title="Favorites" onClick={() => router.replace('/favorites')}/>
     </div>
     </>
   );

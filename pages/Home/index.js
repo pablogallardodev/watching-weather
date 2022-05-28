@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-import Layout from "components/Layout";
 import Navbar from "components/Navbar";
 import Infocard from "components/Infocard";
 import Footer from "components/Footer";
@@ -11,18 +10,18 @@ import styles from "styles/home.module.css";
 
 import useUser from "hooks/useUser";
 
-const Home = () => {
+const Home = ({ actual }) => {
   const user = useUser()
   const [weather, setWeather] = useState(null);
   const [historyDay, setHistoryDay] = useState({});
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState('');
   const [loading, setLoading] = useState(false);
-  const [myLocation, setMyLocation] = useState(true);
+  const [myLocation, setMyLocation] = useState(actual === '');
 
   useEffect(() => {
     setLoading(true)
     function success({coords}) {
-      useFetch('get_current', `${coords.latitude},${coords.longitude}`).then(resCurrent => {
+      useFetch('get_current', actual || `${coords.latitude},${coords.longitude}`).then(resCurrent => {
         useFetch('get_history', `${coords.latitude},${coords.longitude}`).then(resHistory => {
           if (!resCurrent.error && !resHistory.error){
             setWeather(resCurrent.data)
@@ -78,17 +77,17 @@ const Home = () => {
   }
 
   return (
-  <Layout isDay={weather?.isDay}>
-    <Navbar
-      location={location}
-      setLocation={setLocation}
-      handleSubmit={handleSubmit}
-      myLocation={myLocation}
-      setMyLocation={setMyLocation}
-    />
-    {
-      !loading ? 
-      <>
+  !loading && weather
+    ? <>
+        <div className={styles.container} style={weather.isDay ? {backgroundColor: '#0070f330'} : {backgroundColor: '#7F00FF30'}}>
+        <Navbar
+          location={location}
+          setLocation={setLocation}
+          handleSubmit={handleSubmit}
+          myLocation={myLocation}
+          setMyLocation={setMyLocation}
+        />
+        
         <h3 className={styles.time}>{weather?.localtime} TODO add change °C o °F</h3>
 
         <h2 className={styles.location}>
@@ -111,10 +110,10 @@ const Home = () => {
 
         <Infocard weather={weather} />
         <History historyDay={historyDay}/>
-      </>
-    : <Spiner />}
-    <Footer />
-  </Layout>
+      </div>
+      <Footer location={weather?.locationName}/>
+    </>
+    : <Spiner />
   );
 };
 
