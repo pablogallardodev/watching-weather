@@ -10,23 +10,26 @@ import styles from "styles/home.module.css";
 
 import useUser from "hooks/useUser";
 
-const Home = ({ actual }) => {
-  const user = useUser()
+const Home = ({ actual = '' }) => {
+  useUser()
   const [weather, setWeather] = useState(null);
   const [historyDay, setHistoryDay] = useState({});
-  const [location, setLocation] = useState('');
+  const [location, setLocation] = useState(actual);
   const [loading, setLoading] = useState(false);
   const [myLocation, setMyLocation] = useState(actual === '');
 
   useEffect(() => {
     setLoading(true)
     function success({coords}) {
-      useFetch('get_current', actual || `${coords.latitude},${coords.longitude}`).then(resCurrent => {
-        useFetch('get_history', `${coords.latitude},${coords.longitude}`).then(resHistory => {
+      const q = myLocation ? `lat=${coords.latitude}&lon=${coords.longitude}`
+              : location || `${coords.latitude},${coords.longitude}`
+      useFetch('get_current', q).then(resCurrent => {
+        useFetch('get_history', q).then(resHistory => {
           if (!resCurrent.error && !resHistory.error){
             setWeather(resCurrent.data)
             setHistoryDay(resHistory.data)
             setLoading(false)
+            location && setLocation('')
           } else {
             setLoading(false)
           }
@@ -36,24 +39,26 @@ const Home = ({ actual }) => {
     
     function error(err) { 
       console.warn(err.message)
-      useFetch('get_current').then(resCurrent => {
-        useFetch('get_history').then(resHistory => {
+      const q = actual || ''
+      useFetch('get_current', q).then(resCurrent => {
+        useFetch('get_history', q).then(resHistory => {
           if (!resCurrent.error && !resHistory.error){
             setWeather(resCurrent.data)
             setHistoryDay(resHistory.data)
             setLoading(false)
             setMyLocation(false)
+            location && setLocation('')
           } else {
             setLoading(false)
           }
         })
       })
     };
-    
-    myLocation 
-    ? user && navigator.geolocation.getCurrentPosition(success, error, {})
+
+    myLocation || location
+    ? navigator.geolocation.getCurrentPosition(success, error, {})
     : setLoading(false)
-  }, [myLocation, user]);
+  }, [myLocation]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
