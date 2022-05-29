@@ -9,9 +9,11 @@ import useFetch from "hooks/useFetch";
 import styles from "styles/home.module.css";
 
 import useUser from "hooks/useUser";
+import useWeather from "hooks/useWeather";
 
 const Home = ({ actual = '' }) => {
   useUser()
+  useWeather()
   const [weather, setWeather] = useState(null);
   const [historyDay, setHistoryDay] = useState({});
   const [location, setLocation] = useState(actual);
@@ -20,12 +22,12 @@ const Home = ({ actual = '' }) => {
 
   useEffect(() => {
     setLoading(true)
-    function success({coords}) {
+    function success({ coords }) {
       const q = myLocation ? `lat=${coords.latitude}&lon=${coords.longitude}`
-              : location || `${coords.latitude},${coords.longitude}`
+        : location || `${coords.latitude},${coords.longitude}`
       useFetch('get_current', q).then(resCurrent => {
         useFetch('get_history', q).then(resHistory => {
-          if (!resCurrent.error && !resHistory.error){
+          if (!resCurrent.error && !resHistory.error) {
             setWeather(resCurrent.data)
             setHistoryDay(resHistory.data)
             setLoading(false)
@@ -36,13 +38,13 @@ const Home = ({ actual = '' }) => {
         })
       })
     };
-    
-    function error(err) { 
+
+    function error(err) {
       console.warn(err.message)
       const q = actual || ''
       useFetch('get_current', q).then(resCurrent => {
         useFetch('get_history', q).then(resHistory => {
-          if (!resCurrent.error && !resHistory.error){
+          if (!resCurrent.error && !resHistory.error) {
             setWeather(resCurrent.data)
             setHistoryDay(resHistory.data)
             setLoading(false)
@@ -56,8 +58,8 @@ const Home = ({ actual = '' }) => {
     };
 
     myLocation || location
-    ? navigator.geolocation.getCurrentPosition(success, error, {})
-    : setLoading(false)
+      ? navigator.geolocation.getCurrentPosition(success, error, {})
+      : setLoading(false)
   }, [myLocation]);
 
   const handleSubmit = (e) => {
@@ -82,43 +84,43 @@ const Home = ({ actual = '' }) => {
   }
 
   return (
-  !loading && weather
-    ? <>
-        <div className={styles.container} style={weather.isDay ? {backgroundColor: '#0070f330'} : {backgroundColor: '#7F00FF30'}}>
-        <Navbar
-          location={location}
-          setLocation={setLocation}
-          handleSubmit={handleSubmit}
-          myLocation={myLocation}
-          setMyLocation={setMyLocation}
-        />
-        
-        <h3 className={styles.time}>{weather?.localtime} TODO add change °C o °F</h3>
+    !loading && weather
+      ? <>
+        <div className={styles.container} style={weather.isDay ? { backgroundColor: '#0070f330' } : { backgroundColor: '#7F00FF30' }}>
+          <Navbar
+            location={location}
+            setLocation={setLocation}
+            handleSubmit={handleSubmit}
+            myLocation={myLocation}
+            setMyLocation={setMyLocation}
+          />
 
-        <h2 className={styles.location}>
-          {weather?.locationName}, {weather?.country}
-        </h2>
+          <h3 className={styles.time}>{weather?.localtime} TODO add change °C o °F</h3>
 
-        <h1 className={styles.temperature}>
-          {Math.round(weather?.temperatureC)}
-          <label>°C</label>
-        </h1>
+          <h2 className={styles.location}>
+            {weather?.locationName}, {weather?.country}
+          </h2>
 
-        <span className={styles.feelslike}>
-          Feels like: {Math.round(weather?.feelsLikeC)} °C
-        </span>
+          <h1 className={styles.temperature}>
+            {Math.round(weather?.temperatureC)}
+            <label>°C</label>
+          </h1>
 
-        <div className={styles.condition}>
-          <img src={weather?.conditionIcon} alt={weather?.conditionText} />
-          <label>{weather?.conditionText}</label>
+          <span className={styles.feelslike}>
+            Feels like: {Math.round(weather?.feelsLikeC)} °C
+          </span>
+
+          <div className={styles.condition}>
+            <img src={weather?.conditionIcon} alt={weather?.conditionText} />
+            <label>{weather?.conditionText}</label>
+          </div>
+
+          <Infocard weather={weather} />
+          <History historyDay={historyDay} />
         </div>
-
-        <Infocard weather={weather} />
-        <History historyDay={historyDay}/>
-      </div>
-      <Footer location={weather?.locationName}/>
-    </>
-    : <Spiner />
+        <Footer location={weather?.locationName} />
+      </>
+      : <Spiner />
   );
 };
 
