@@ -20,10 +20,9 @@ export default function handler(req, res) {
   )
     .then((response) => response.json())
     .then((data) => {
-      const hours = [];
       const { astro, hour } = data.forecast.forecastday[0]
 
-      hour.map((h) => {
+      const hours = hour.map((h) => {
         const { condition } = h
         const object = {
           hour: h.time.split(" ")[1],
@@ -32,7 +31,7 @@ export default function handler(req, res) {
           temperatureF: h.temp_f
         }
 
-        hours.push(object)
+        return object
       })
 
       res.status(200).json({ error: false, data: { astro, hours } });

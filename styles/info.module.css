@@ -6,6 +6,7 @@
   justify-content: space-evenly;
   text-align: center;
   padding: .5rem 0;
+  margin-bottom: 1rem;
   width: 95%;
 }
 
@@ -16,6 +17,6 @@
 .info span {
   display: block;
   font-weight: 350;
-  font-size: 16px;
+  font-size: 1rem;
   margin-bottom: .2rem;
 }

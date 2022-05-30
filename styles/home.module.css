@@ -22,10 +22,24 @@
 }
 
 .time {
-  width: 95%;
-  text-align: start;
-  margin: 1rem 0;
+  align-items: center;
+  display: flex;
   font-weight: 300;
+  justify-content: space-around;
+  margin: 1rem 0;
+  text-align: start;
+  width: 95%;
+}
+
+.time label {
+  display: flex;
+  font-weight: 600;
+}
+
+.time svg {
+  cursor: pointer;
+  margin: 0 .5rem;
+  transition: all .3s ease;
 }
 
 .location {

@@ -12,12 +12,12 @@ export default function handler(req, res) {
   };
 
   fetch(
-    `${process.env.BASE_URL}current.json?q=${q || "Guanajuato"}`,
+    `${process.env.BASE_URL}forecast.json?q=${q || "Guanajuato"}&days=3`,
     options
   )
     .then((response) => response.json())
     .then((data) => {
-      const { location, current } = data;
+      const { location, current, forecast } = data;
       const { country, localtime, name } = location;
       const {
         condition,
@@ -33,23 +33,32 @@ export default function handler(req, res) {
         uv,
       } = current;
       const { text, icon } = condition;
+      const date = `${new Date(localtime).toDateString()} ${localtime.split(' ')[1]}`
+
+      // Info next 3 days
+      const days = forecast.forecastday.map((day) => {
+        const { date } = day;
+
+        return date
+      })
 
       const body = {
-        conditionText: text, //
-        conditionIcon: icon, //
+        conditionText: text,
+        conditionIcon: icon,
         country,
-        localtime, //
-        locationName: name, //
-        humidity, //
+        localtime: date,
+        locationName: name,
+        humidity,
         isDay: is_day,
-        feelsLikeC: feelslike_c, //
+        feelsLikeC: feelslike_c,
         feelsLikeF: feelslike_f,
-        temperatureC: temp_c, //
+        temperatureC: temp_c,
         temperatureF: temp_f,
-        windSpeed: wind_kph, //
-        windDegree: wind_degree, //
-        windDir: wind_dir, //
-        uv, //
+        windSpeed: wind_kph,
+        windDegree: wind_degree,
+        windDir: wind_dir,
+        uv,
+        days
       };
       res.status(200).json({ error: false, data: body });
     })

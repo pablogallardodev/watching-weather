@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { BsToggleOn, BsToggleOff } from 'react-icons/bs'
 import Navbar from "components/Navbar";
 import Infocard from "components/Infocard";
 import Footer from "components/Footer";
@@ -9,12 +9,14 @@ import styles from "styles/home.module.css";
 
 import useUser from "hooks/useUser";
 import useWeather from "hooks/useWeather";
+import Astro from "components/Astro";
 
 const Home = ({searchLocation}) => {
   useUser()
+  const [isC, setIsC] = useState(true)
   const [location, setLocation] = useState('')
   const [getLocation, setGetLocation] = useState(searchLocation === undefined)
-  const [myLocation, setMyLocation] = useState(null)
+  const [myLocation, setMyLocation] = useState(searchLocation)
   const { weather, loading, historyDay } = useWeather(myLocation)
   
   useEffect(() => {
@@ -27,10 +29,8 @@ const Home = ({searchLocation}) => {
       setMyLocation('Guanajuato')
       setGetLocation(false)
     };
-
-    searchLocation && !getLocation
-      ?setMyLocation(searchLocation)
-      :getLocation && navigator.geolocation.getCurrentPosition(hanldeSuccess, handleError, {})
+    
+    getLocation && navigator.geolocation.getCurrentPosition(hanldeSuccess, handleError, {})
   }, [getLocation]);
   
   const handleSubmit = (e) => {
@@ -52,19 +52,29 @@ const Home = ({searchLocation}) => {
             setGetLocation={setGetLocation}
           />
 
-          <h3 className={styles.time}>{weather?.localtime} TODO add change °C o °F</h3>
+          <h3 className={styles.time}>
+            {weather.localtime}
+            <label>
+              °F
+              { isC 
+                ? <BsToggleOn size={26} onClick={() => setIsC(!isC)} color="#0070f3"/>
+                : <BsToggleOff size={26} onClick={() => setIsC(!isC)}/>
+              }
+              °C
+            </label>
+          </h3>
 
           <h2 className={styles.location}>
             {weather?.locationName}, {weather?.country}
           </h2>
 
           <h1 className={styles.temperature}>
-            {Math.round(weather?.temperatureC)}
-            <label>°C</label>
+            { isC ? Math.round(weather?.temperatureC) : Math.round(weather?.temperatureF) }
+            <label>{ isC ? '°C' : '°F'}</label>
           </h1>
 
           <span className={styles.feelslike}>
-            Feels like: {Math.round(weather?.feelsLikeC)} °C
+            Feels like: { isC ? Math.round(weather?.feelsLikeC) : Math.round(weather?.feelsLikeF)} { isC ? '°C' : '°F'}
           </span>
 
           <div className={styles.condition}>
@@ -73,7 +83,8 @@ const Home = ({searchLocation}) => {
           </div>
 
           <Infocard weather={weather} />
-          <History historyDay={historyDay} />
+          <History historyDay={historyDay} isC={isC}/>
+          <Astro historyDay={historyDay}/>
         </div>
         <Footer location={weather?.locationName} />
       </>
