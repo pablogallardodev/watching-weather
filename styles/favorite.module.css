@@ -1,6 +1,6 @@
 .container {
+  align-items: center;
   display: flex;
-  justify-content: flex-start;
   flex-direction: column;
   height: 100%;
   width: 100%;
@@ -30,6 +30,7 @@
   margin: .3rem .5rem;
   padding: .5rem;
   transition: all .4s ease;
+  width: 90%;
 }
 
 .info {

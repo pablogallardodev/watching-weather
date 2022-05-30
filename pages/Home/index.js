@@ -5,82 +5,39 @@ import Infocard from "components/Infocard";
 import Footer from "components/Footer";
 import Spiner from "components/Spiner";
 import History from "components/History";
-import useFetch from "hooks/useFetch";
 import styles from "styles/home.module.css";
 
 import useUser from "hooks/useUser";
 import useWeather from "hooks/useWeather";
 
-const Home = ({ actual = '' }) => {
+const Home = ({searchLocation}) => {
   useUser()
-  useWeather()
-  const [weather, setWeather] = useState(null);
-  const [historyDay, setHistoryDay] = useState({});
-  const [location, setLocation] = useState(actual);
-  const [loading, setLoading] = useState(false);
-  const [myLocation, setMyLocation] = useState(actual === '');
-
+  const [location, setLocation] = useState('')
+  const [getLocation, setGetLocation] = useState(searchLocation === undefined)
+  const [myLocation, setMyLocation] = useState(null)
+  const { weather, loading, historyDay } = useWeather(myLocation)
+  
   useEffect(() => {
-    setLoading(true)
-    function success({ coords }) {
-      const q = myLocation ? `lat=${coords.latitude}&lon=${coords.longitude}`
-        : location || `${coords.latitude},${coords.longitude}`
-      useFetch('get_current', q).then(resCurrent => {
-        useFetch('get_history', q).then(resHistory => {
-          if (!resCurrent.error && !resHistory.error) {
-            setWeather(resCurrent.data)
-            setHistoryDay(resHistory.data)
-            setLoading(false)
-            location && setLocation('')
-          } else {
-            setLoading(false)
-          }
-        })
-      })
+    function hanldeSuccess({ coords }) {
+      setMyLocation(`lat=${coords.latitude}&lon=${coords.longitude}`)
     };
-
-    function error(err) {
+    
+    function handleError(err) {
       console.warn(err.message)
-      const q = actual || ''
-      useFetch('get_current', q).then(resCurrent => {
-        useFetch('get_history', q).then(resHistory => {
-          if (!resCurrent.error && !resHistory.error) {
-            setWeather(resCurrent.data)
-            setHistoryDay(resHistory.data)
-            setLoading(false)
-            setMyLocation(false)
-            location && setLocation('')
-          } else {
-            setLoading(false)
-          }
-        })
-      })
+      setMyLocation('Guanajuato')
+      setGetLocation(false)
     };
 
-    myLocation || location
-      ? navigator.geolocation.getCurrentPosition(success, error, {})
-      : setLoading(false)
-  }, [myLocation]);
-
+    searchLocation && !getLocation
+      ?setMyLocation(searchLocation)
+      :getLocation && navigator.geolocation.getCurrentPosition(hanldeSuccess, handleError, {})
+  }, [getLocation]);
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (location) {
-      setLoading(true)
-      useFetch('get_current', location).then(resCurrent => {
-        useFetch('get_history', location).then(resHistory => {
-          if (!resCurrent.error && !resHistory.error) {
-            setWeather(resCurrent.data)
-            setHistoryDay(resHistory.data)
-            setLoading(false)
-            setLocation('')
-            setMyLocation(false)
-          } else {
-            setLoading(false)
-            setMyLocation(true)
-          }
-        })
-      })
-    }
+    location && setMyLocation(location)
+    setGetLocation(false)
+    setLocation('')
   }
 
   return (
@@ -91,8 +48,8 @@ const Home = ({ actual = '' }) => {
             location={location}
             setLocation={setLocation}
             handleSubmit={handleSubmit}
-            myLocation={myLocation}
-            setMyLocation={setMyLocation}
+            getLocation={getLocation}
+            setGetLocation={setGetLocation}
           />
 
           <h3 className={styles.time}>{weather?.localtime} TODO add change °C o °F</h3>

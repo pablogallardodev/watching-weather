@@ -5,7 +5,7 @@ import { onSignOut } from 'services/firebase/client'
 import Avatar from "components/Avatar";
 import styles from "styles/navbar.module.css";
 
-const Navbar = ({ location, setLocation, handleSubmit, myLocation, setMyLocation, list }) => {
+const Navbar = ({ location, setLocation, handleSubmit, getLocation, setGetLocation, list }) => {
   const [viewMenu, setViewMenu] = useState(false);
 
   const handleSignOut = () => {
@@ -30,8 +30,8 @@ const Navbar = ({ location, setLocation, handleSubmit, myLocation, setMyLocation
         { !list &&
           <BsGeoAltFill 
             size={28}
-            className={myLocation ? styles.myLocationOn : styles.myLocationOff}
-            onClick={() => setMyLocation(true)}
+            className={getLocation ? styles.myLocationOn : styles.myLocationOff}
+            onClick={() => setGetLocation(true)}
             title="Get my location"
           />
         }

@@ -1,19 +1,12 @@
-import { useEffect, useState } from 'react'
 import { BsTrash, BsBoxArrowInUpRight } from 'react-icons/bs'
 import styles from 'styles/favorite.module.css'
-import useFetch from 'hooks/useFetch'
 import { deleteFavorite } from 'services/firebase/client'
 import { useRouter } from 'next/router'
+import useWeather from 'hooks/useWeather'
 
 const Favorite = ({ location, favorites, setFavorites }) => {
   const router = useRouter()
-  const [weather, setWeather] = useState(null);
-
-  useEffect(() => {
-    useFetch('get_current', `${location}`).then(resCurrent => {
-      setWeather(resCurrent.data)
-    })
-  }, [])
+  const { weather } = useWeather(location, true)
 
   const handleGoTo = () => {
     router.replace(`/home/${location}`)

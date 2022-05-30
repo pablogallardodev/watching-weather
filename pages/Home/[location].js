@@ -5,7 +5,7 @@ const Location = () => {
   const router = useRouter()
   const { location } = router.query
 
-  return <Home actual={location} />
+  return <Home searchLocation={location} />
 }
 
 export default Location
