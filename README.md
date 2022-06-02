@@ -19,15 +19,15 @@ Instala las dependencias:
 npm install
 ```
 
-Crea un archivo `.env.local` a partir del archivo `.env.example`.
+Crea un archivo `.env` a partir del archivo `.env.example`.
 
 ```bash
-cp .env.example .env.local
+cp .env.example .env
 ```
 
-### Variables .env.local
+### Variables .env
 
-Necesitará el RAPID_API_HOST y RAPID_API_KEY, los cuales podrás encontrar en el [dashboard](https://rapidapi.com/weatherapi/api/weatherapi-com/) una vez suscrito al API dentro de RapidAPI. Agrégue ambas variables al archivo `.env.local`.
+Necesitará el RAPID_API_HOST y RAPID_API_KEY, los cuales podrás encontrar en el [dashboard](https://rapidapi.com/weatherapi/api/weatherapi-com/) una vez suscrito al API dentro de RapidAPI. Agrégue ambas variables al archivo `.env`.
 
 En el archivo /services/firebase/client.js, debe sustituir la configuración del proyecto firebase que puede encontrar en la [consola](https://console.firebase.google.com/) de su proyecto.
 
