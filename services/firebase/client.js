@@ -18,15 +18,7 @@ import {
   where
 } from 'firebase/firestore'
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCf2G5_9Ykeh0rs7VzUA2JMsxTqBjTq3PE",
-  authDomain: "weather-app-eb662.firebaseapp.com",
-  projectId: "weather-app-eb662",
-  storageBucket: "weather-app-eb662.appspot.com",
-  messagingSenderId: "872723034257",
-  appId: "1:872723034257:web:3ee8566ac110ca74488f30",
-  measurementId: "G-C99YWZDB5H"
-}
+const firebaseConfig = {}
 
 !getApps().length && initializeApp(firebaseConfig)
 const githubProvider = new GithubAuthProvider()
