@@ -18,9 +18,7 @@ import {
   where
 } from 'firebase/firestore'
 
-const firebaseConfig = {}
-
-!getApps().length && initializeApp(firebaseConfig)
+!getApps().length && initializeApp(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_CONFIG))
 const githubProvider = new GithubAuthProvider()
 const db = getFirestore()
 

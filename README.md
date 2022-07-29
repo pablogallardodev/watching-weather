@@ -29,7 +29,7 @@ cp .env.example .env
 
 Necesitará el RAPID_API_HOST y RAPID_API_KEY, los cuales podrás encontrar en el [dashboard](https://rapidapi.com/weatherapi/api/weatherapi-com/) una vez suscrito al API dentro de RapidAPI. Agrégue ambas variables al archivo `.env`.
 
-En el archivo /services/firebase/client.js, debe sustituir la configuración del proyecto firebase que puede encontrar en la [consola](https://console.firebase.google.com/) de su proyecto.
+También debe añadir la configuración del proyecto de firebase que puede encontrar en la [consola](https://console.firebase.google.com/) de su proyecto, a la variable NEXT_PUBLIC_FIREBASE_CONFIG.
 
 ## Ejecutando la aplicación
 
