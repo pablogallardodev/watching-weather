@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { BsGithub, BsInstagram } from 'react-icons/bs'
-import Layout from 'components/Layout'
 import Spiner from 'components/Spiner'
 import styles from 'styles/app.module.css'
 
