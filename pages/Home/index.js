@@ -41,17 +41,19 @@ const Home = ({searchLocation}) => {
   }
 
   return (
-    !loading && weather
-      ? <>
-        <div className={styles.container} style={weather.isDay ? { backgroundColor: '#0070f330' } : { backgroundColor: '#7F00FF30' }}>
-          <Navbar
-            location={location}
-            setLocation={setLocation}
-            handleSubmit={handleSubmit}
-            getLocation={getLocation}
-            setGetLocation={setGetLocation}
-          />
+    <>
+      <div className={styles.container} style={!loading && weather.isDay ? { backgroundColor: '#0070f330' } : { backgroundColor: '#7F00FF30' }}>
+        <Navbar
+          location={location}
+          setLocation={setLocation}
+          handleSubmit={handleSubmit}
+          getLocation={getLocation}
+          setGetLocation={setGetLocation}
+        />
 
+        {
+        !loading ?
+        <>
           <h3 className={styles.time}>
             {weather.localtime}
             <label>
@@ -85,10 +87,13 @@ const Home = ({searchLocation}) => {
           <Infocard weather={weather} />
           <History historyDay={historyDay} isC={isC}/>
           <Astro historyDay={historyDay}/>
-        </div>
-        <Footer location={weather?.locationName} />
-      </>
-      : <Spiner />
+          
+        </>
+        : <Spiner/>
+        }        
+      </div>
+      <Footer location={weather?.locationName} />
+    </>
   );
 };
 
